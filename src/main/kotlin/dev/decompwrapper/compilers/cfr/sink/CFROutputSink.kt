@@ -1,4 +1,4 @@
-package dev.decompwrapper.compilers.sink
+package dev.decompwrapper.compilers.cfr.sink
 
 import org.benf.cfr.reader.api.OutputSinkFactory
 import org.benf.cfr.reader.api.OutputSinkFactory.SinkClass

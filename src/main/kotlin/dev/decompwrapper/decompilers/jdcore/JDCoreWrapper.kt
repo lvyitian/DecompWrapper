@@ -6,7 +6,6 @@ import dev.decompwrapper.decompilers.jdcore.loader.JDCoreLoader
 import dev.decompwrapper.decompilers.jdcore.printer.JDCorePrinter
 import org.jd.core.v1.ClassFileToJavaSourceDecompiler
 import java.io.File
-import kotlin.Exception
 
 class JDCoreWrapper : Wrapper {
     private val loader = JDCoreLoader()

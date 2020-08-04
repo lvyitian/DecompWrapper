@@ -26,7 +26,7 @@ class CFROutputSink : OutputSinkFactory {
 
     override fun <T> getSink(sinkType: SinkType, sinkClass: SinkClass): OutputSinkFactory.Sink<T>? =
         if (sinkType == SinkType.JAVA && sinkClass == SinkClass.DECOMPILED) {
-            OutputSinkFactory.Sink { x: T -> dumpDecompiled.accept(x as Decompiled) }
+            OutputSinkFactory.Sink { dumpDecompiled.accept(it as Decompiled) }
         } else NoopSink()
 
 }

@@ -13,9 +13,10 @@ class JDCoreWrapper : Wrapper {
     private val printer = JDCorePrinter()
 
     override fun analyseClass(pathToClass: String): DecompiledClass {
+        val path = pathToClass.split(File.separatorChar)
         decompiler.decompile(loader, printer, pathToClass)
         return try {
-            DecompiledClass(pathToClass.split(File.separatorChar)[1].removeSuffix(".class"), printer.toString())
+            DecompiledClass(path[path.size - 1].removeSuffix(".class"), printer.toString())
         } catch (e: Exception) {
             error("Please use File.separatorChar instead of a self defined char")
         }
@@ -24,8 +25,9 @@ class JDCoreWrapper : Wrapper {
     override fun analyseClasses(pathsToClasses: List<String>): List<DecompiledClass> {
         val classes = mutableListOf<DecompiledClass>()
         pathsToClasses.forEach {
+            val path = it.split(File.separatorChar)
             decompiler.decompile(loader, printer, it)
-            classes.add(DecompiledClass((it.split(File.separatorChar)[1].removeSuffix(".class")), printer.toString()))
+            classes.add(DecompiledClass(path[path.size - 1].removeSuffix(".class"), printer.toString()))
         }
         return classes
     }

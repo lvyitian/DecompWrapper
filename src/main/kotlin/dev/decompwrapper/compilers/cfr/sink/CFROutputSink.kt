@@ -21,8 +21,6 @@ class CFROutputSink : OutputSinkFactory {
 
     private val dumpDecompiled =
         Consumer { d: Decompiled ->
-            println(d.packageName + "." + d.className)
-            println(d.java)
             decompiled[d.packageName + "." + d.className] = d.java
         }
 

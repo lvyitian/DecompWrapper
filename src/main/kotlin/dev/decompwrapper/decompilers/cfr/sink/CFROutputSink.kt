@@ -1,11 +1,10 @@
-package dev.decompwrapper.compilers.cfr.sink
+package dev.decompwrapper.decompilers.cfr.sink
 
 import org.benf.cfr.reader.api.OutputSinkFactory
 import org.benf.cfr.reader.api.OutputSinkFactory.SinkClass
 import org.benf.cfr.reader.api.OutputSinkFactory.SinkType
 import org.benf.cfr.reader.api.SinkReturns.Decompiled
 import java.util.function.Consumer
-
 
 class CFROutputSink : OutputSinkFactory {
     private val decompiled: MutableMap<String, String> = mutableMapOf()

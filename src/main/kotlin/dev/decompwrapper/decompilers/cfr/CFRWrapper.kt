@@ -1,7 +1,7 @@
-package dev.decompwrapper.compilers.cfr
+package dev.decompwrapper.decompilers.cfr
 
-import dev.decompwrapper.compilers.Wrapper
-import dev.decompwrapper.compilers.cfr.sink.CFROutputSink
+import dev.decompwrapper.decompilers.Wrapper
+import dev.decompwrapper.decompilers.cfr.sink.CFROutputSink
 import org.benf.cfr.reader.api.CfrDriver
 
 class CFRWrapper : Wrapper {

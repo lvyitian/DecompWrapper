@@ -1,4 +1,4 @@
-package dev.decompwrapper.compilers
+package dev.decompwrapper.decompilers
 
 interface Wrapper {
     fun analyseClass(pathToClass: String) : String

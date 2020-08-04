@@ -14,9 +14,8 @@ class CFROutputSink : OutputSinkFactory {
         collection: Collection<SinkClass>
     ): List<SinkClass> = if (sinkType == SinkType.JAVA && collection.contains(SinkClass.DECOMPILED)) {
         listOf(SinkClass.DECOMPILED, SinkClass.STRING)
-    } else {
-        mutableListOf(SinkClass.STRING)
-    }
+    } else listOf(SinkClass.STRING)
+
 
     private val dumpDecompiled =
         Consumer { d: Decompiled ->

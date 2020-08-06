@@ -10,6 +10,7 @@ object DecompWrapper {
         WrapperType.CFR to CFRWrapper()
     )
 
-    fun getAnalyser(type: WrapperType = WrapperType.CFR)
-            = decompWrappers[(decompWrappers.keys.find { it == type } ?: decompWrappers[WrapperType.CFR])] ?: error("Could not find wrapper")
+    fun getAnalyser(type: WrapperType = WrapperType.CFR) =
+        decompWrappers[(decompWrappers.keys.find { it == type } ?: decompWrappers[WrapperType.CFR])]
+            ?: error("Could not find wrapper")
 }

@@ -28,7 +28,6 @@ class JDCorePrinter : Printer {
     }
 
     override fun startMarker(type: Int) {
-
     }
 
     override fun unindent() {
@@ -75,9 +74,7 @@ class JDCorePrinter : Printer {
     }
 
     override fun endMarker(type: Int) {
-
     }
-
 
     override fun toString() = stringBuilder.toString()
 }

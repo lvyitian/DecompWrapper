@@ -12,19 +12,17 @@ class CFROutputSink : OutputSinkFactory {
     override fun getSupportedSinks(
         sinkType: SinkType,
         collection: Collection<SinkClass>
-    ): List<SinkClass> = if (sinkType == SinkType.JAVA && collection.contains(SinkClass.DECOMPILED)) {
-        listOf(SinkClass.DECOMPILED, SinkClass.STRING)
-    } else listOf(SinkClass.STRING)
+    ): List<SinkClass> {
+        return if (sinkType == SinkType.JAVA && collection.contains(SinkClass.DECOMPILED)) {
+            listOf(SinkClass.DECOMPILED, SinkClass.STRING)
+        } else listOf(SinkClass.STRING)
+    }
 
+    private val dumpDecompiled = Consumer { d: Decompiled -> decompiled[d.packageName + "." + d.className] = d.java }
 
-    private val dumpDecompiled =
-        Consumer { d: Decompiled ->
-            decompiled[d.packageName + "." + d.className] = d.java
-        }
-
-    override fun <T> getSink(sinkType: SinkType, sinkClass: SinkClass): OutputSinkFactory.Sink<T>? =
-        if (sinkType == SinkType.JAVA && sinkClass == SinkClass.DECOMPILED) {
+    override fun <T> getSink(sinkType: SinkType, sinkClass: SinkClass): OutputSinkFactory.Sink<T>? {
+        return if (sinkType == SinkType.JAVA && sinkClass == SinkClass.DECOMPILED) {
             OutputSinkFactory.Sink { dumpDecompiled.accept(it as Decompiled) }
         } else NoopSink()
-
+    }
 }

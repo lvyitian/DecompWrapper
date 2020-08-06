@@ -14,8 +14,7 @@ repositories {
 dependencies {
     // Required for Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    // Add CFR to the dependencies
+
     implementation "org.benf:cfr:0.150"
-    // Add JD-Core to the dependencies
     implementation 'org.jd:jd-core:1.1.3'
 }

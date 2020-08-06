@@ -1,5 +1,6 @@
 package dev.decompwrapper.decompilers.cfr.sink
 
+import dev.decompwrapper.decompilers.DecompiledClass
 import org.benf.cfr.reader.api.OutputSinkFactory
 import org.benf.cfr.reader.api.OutputSinkFactory.SinkClass
 import org.benf.cfr.reader.api.OutputSinkFactory.SinkType
@@ -7,7 +8,7 @@ import org.benf.cfr.reader.api.SinkReturns.Decompiled
 import java.util.function.Consumer
 
 class CFROutputSink : OutputSinkFactory {
-    private val decompiled: MutableMap<String, String> = mutableMapOf()
+    var contents: MutableList<DecompiledClass> = mutableListOf()
 
     override fun getSupportedSinks(
         sinkType: SinkType,
@@ -18,7 +19,7 @@ class CFROutputSink : OutputSinkFactory {
         } else listOf(SinkClass.STRING)
     }
 
-    private val dumpDecompiled = Consumer { d: Decompiled -> decompiled[d.packageName + "." + d.className] = d.java }
+    private val dumpDecompiled = Consumer { d: Decompiled -> contents.add(DecompiledClass(d.packageName, d.className, d.java)) }
 
     override fun <T> getSink(sinkType: SinkType, sinkClass: SinkClass): OutputSinkFactory.Sink<T>? {
         return if (sinkType == SinkType.JAVA && sinkClass == SinkClass.DECOMPILED) {

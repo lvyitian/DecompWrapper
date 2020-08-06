@@ -6,17 +6,24 @@ import dev.decompwrapper.decompilers.cfr.sink.CFROutputSink
 import org.benf.cfr.reader.api.CfrDriver
 
 class CFRWrapper : Wrapper {
-    private val driver: CfrDriver = CfrDriver.Builder()
-        .withOutputSink(CFROutputSink())
-        .build()
-
     override fun analyseClass(pathToClass: String): DecompiledClass {
-        driver.analyse(listOf(pathToClass))
-        TODO("Not yet implemented")
+        val outputSink = CFROutputSink()
+
+        CfrDriver.Builder().withOutputSink(outputSink).build().analyse(listOf(pathToClass))
+        return outputSink.contents[0]
     }
 
     override fun analyseClasses(pathsToClasses: List<String>): List<DecompiledClass> {
-        driver.analyse(pathsToClasses)
-        TODO("Not yet implemented")
+        val outputSink = CFROutputSink()
+
+        CfrDriver.Builder().withOutputSink(outputSink).build().analyse(pathsToClasses)
+        return outputSink.contents
+    }
+
+    override fun analyseJar(pathToJar: String): List<DecompiledClass> {
+        val outputSink = CFROutputSink()
+
+        CfrDriver.Builder().withOutputSink(outputSink).build().analyse(listOf(pathToJar))
+        return outputSink.contents
     }
 }

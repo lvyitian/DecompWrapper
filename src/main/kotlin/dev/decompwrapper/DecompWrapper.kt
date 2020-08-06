@@ -17,5 +17,5 @@ object DecompWrapper {
 }
 
 fun main() {
-    val frame = DecompWrapperFrame()
+    DecompWrapperFrame()
 }

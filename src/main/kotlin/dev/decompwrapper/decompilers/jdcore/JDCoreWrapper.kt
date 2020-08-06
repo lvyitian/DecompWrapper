@@ -5,7 +5,6 @@ import dev.decompwrapper.decompilers.Wrapper
 import dev.decompwrapper.decompilers.jdcore.loader.JDCoreLoader
 import dev.decompwrapper.decompilers.jdcore.printer.JDCorePrinter
 import org.jd.core.v1.ClassFileToJavaSourceDecompiler
-import org.jd.core.v1.api.Decompiler
 import java.io.File
 
 class JDCoreWrapper : Wrapper {
@@ -14,19 +13,15 @@ class JDCoreWrapper : Wrapper {
     private val printer = JDCorePrinter()
 
     override fun analyseClass(pathToClass: String): DecompiledClass {
-        val path = pathToClass.split(File.separatorChar)
+        val path = pathToClass.split(pathToClass.getSeparator())
         decompiler.decompile(loader, printer, pathToClass)
-        return try {
-            DecompiledClass("", path[path.size - 1].removeSuffix(".class"), printer.toString())
-        } catch (e: Exception) {
-            error("Please use File.separatorChar instead of a self defined char")
-        }
+        return DecompiledClass("", path[path.size - 1].removeSuffix(".class"), printer.toString())
     }
 
     override fun analyseClasses(pathsToClasses: List<String>): List<DecompiledClass> {
         val classes = mutableListOf<DecompiledClass>()
         pathsToClasses.forEach {
-            val path = it.split(File.separatorChar)
+            val path = it.split(it.getSeparator())
             decompiler.decompile(loader, printer, it)
             classes.add(DecompiledClass("", path[path.size - 1].removeSuffix(".class"), printer.toString()))
         }
@@ -36,4 +31,14 @@ class JDCoreWrapper : Wrapper {
     override fun analyseJar(pathToJar: String): List<DecompiledClass> {
         TODO("Not implemented yet")
     }
+}
+
+fun File.getSeparator() = when {
+    path.contains("\\") -> "\\"
+    else -> "/["
+}
+
+fun String.getSeparator() = when {
+    contains("\\") -> "\\"
+    else -> "/"
 }

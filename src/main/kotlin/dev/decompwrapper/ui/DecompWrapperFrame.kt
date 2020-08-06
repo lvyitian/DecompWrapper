@@ -1,20 +1,19 @@
 package dev.decompwrapper.ui
 
 import dev.decompwrapper.DecompWrapper
+import dev.decompwrapper.ui.filters.SupportedClassFilter
 import dev.decompwrapper.ui.panes.DecompilingPane
 import dev.decompwrapper.ui.panes.MainPane
 import dev.decompwrapper.ui.panes.core.DecompWrapperPane
-import dev.decompwrapper.ui.theme.DecompWrapperTheme
 import java.awt.*
 import java.awt.event.KeyEvent
 import java.io.File
-import javax.swing.JDialog
 import javax.swing.JFileChooser
 import javax.swing.JFrame
 import javax.swing.UIManager
 
 
-class DecompWrapperFrame : JFrame() {
+class DecompWrapperFrame : JFrame("DecompWrapper") {
     var pane: DecompWrapperPane = MainPane()
 
     init {
@@ -28,8 +27,8 @@ class DecompWrapperFrame : JFrame() {
         updatePane(pane)
         makeMenuBar()
 
-        title = "DecompWrapper"
         defaultCloseOperation = EXIT_ON_CLOSE
+        setLocationRelativeTo(null)
         isVisible = true
     }
 
@@ -65,6 +64,7 @@ class DecompWrapperFrame : JFrame() {
     private fun openFile() {
         val fileChooser = JFileChooser()
         fileChooser.currentDirectory = File(System.getProperty("user.dir"))
+        fileChooser.fileFilter = SupportedClassFilter
 
         val result = fileChooser.showOpenDialog(this)
         if (result == JFileChooser.APPROVE_OPTION) {

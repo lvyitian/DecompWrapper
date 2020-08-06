@@ -76,11 +76,10 @@ class DecompWrapperFrame : JFrame() {
             dialogFrame.setLocationRelativeTo(this)
 
             dialogFrame.isVisible = true
-            Thread().run {
-                DecompWrapper.getAnalyser().analyseJar(selectedFile.absolutePath)
 
-                dialogFrame.dispose()
-            }
+            DecompWrapper.getAnalyser().analyseJar(selectedFile.absolutePath)
+
+            dialogFrame.isVisible = false
         }
     }
 }
